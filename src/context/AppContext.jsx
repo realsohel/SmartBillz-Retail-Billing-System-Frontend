@@ -6,6 +6,21 @@ export const AppContext = createContext(null);
 export const AppContextProvider = (props) => {
     
     const [categories, setCategories] = useState([]);
+    const [user, setUser] = useState({
+        userId:null,
+        name:"",
+        email:"",
+        roles:[],
+        createdAt:"",
+        updatedAt:""
+    })
+
+    const [company,setCompany] = useState({
+        companyId:null,
+        name:"",
+        email:"",
+        description:""
+    })
 
     const createCategory = async(category) => {
 
@@ -24,6 +39,8 @@ export const AppContextProvider = (props) => {
             console.error("Failed to delete category");
         }
     }
+
+
 
     useEffect(() => {
         async function loadData(){

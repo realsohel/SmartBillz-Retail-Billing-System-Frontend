@@ -1,17 +1,21 @@
 import React, { useContext, useState } from 'react'
 import { assets } from '../assets/assets';
 import { toast } from 'react-toastify';
-import { AppContext } from '../context/AppContext';
+import { addCategoryAsync, selectCategoryLoading } from '../features/categories/categorySlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCompany } from '../features/auth/authSlice';
 
 const CategoryForm = () => {
 
-    const {createCategory} = useContext(AppContext);
-    const [loading,setLoading] = useState(false);
-    const [img,setImg] = useState(false);
-    const [data,setData] = useState({
+    const dispatch = useDispatch();
+    const loading = useSelector(selectCategoryLoading);
+    const company = useSelector(selectCompany);
+    const [img, setImg] = useState(null);
+    const [data, setData] = useState({
         name: "",
         description: "",
-        bgColor: "#000000"
+        bgColor: "#000000",
+        companyId:"",
     });
 
     const onChangeHandler = (e) => {
@@ -20,36 +24,39 @@ const CategoryForm = () => {
             ...data,
             [name]: value
         });
-
-        console.log(data);
     }
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
-        setLoading(true);
-
+        console.log(company);
         if (!img) {
             toast.warn("Image is required, please upload an image");
-            setLoading(false);
             return;
-            
         }
 
         const formData = new FormData();
+        setData({...data,companyId: company.companyId});
+
         formData.append('category', JSON.stringify(data));
         formData.append('file', img);
+        console.log(data);
 
         try {
-            await createCategory(formData);
-            setLoading(false);
-            setData({
-                name: "",
-                description: "",
-                bgColor: "#000000"
-            });
-            setImg(false);
+            const response = await dispatch(addCategoryAsync(formData));
+            console.log(response);
+            if (addCategoryAsync.fulfilled.match(response)) {
+                toast.success("Category created successfully!");
+                setData({
+                    name: "",
+                    description: "",
+                    bgColor: "#000000",
+                    companyId:"",
+                });
+                setImg(null);
+            } else {
+                toast.error(response.payload || "Failed to create category");
+            }
         } catch (error) {
-            setLoading(false);
             console.error("Failed to create category", error);
         }
     }

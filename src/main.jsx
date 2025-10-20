@@ -4,10 +4,12 @@ import App from './App.jsx'
 import { ToastContainer } from 'react-toastify'
 import { BrowserRouter } from 'react-router-dom'
 import { AppContextProvider } from './context/AppContext.jsx'
+import { Provider } from 'react-redux'
+import { store } from './app/store.js'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    <AppContextProvider>
+    <Provider store={store}>
       <App />
       <ToastContainer 
         position="top-center"
@@ -21,6 +23,6 @@ createRoot(document.getElementById('root')).render(
         pauseOnHover
         theme="light"
       />
-    </AppContextProvider>
+    </Provider>
   </BrowserRouter>
 )

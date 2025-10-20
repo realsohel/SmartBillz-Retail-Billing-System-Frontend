@@ -1,10 +1,11 @@
 import React from 'react'
 import { assets } from '../assets/assets'
 import { Link, NavLink } from 'react-router-dom'
+
+
 const Navbar = () => {
     return (
         <div>
-
         <nav className=" dark:bg-gray-900 fixed w-full z-20 top-0 start-0  shadow-xl dark:border-gray-600 ">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between px-6 max-h-full  md:h-auto">
                 <a href="#" className="flex items-start space-x-2 rtl:space-x-reverse">

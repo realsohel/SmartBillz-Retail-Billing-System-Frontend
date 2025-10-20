@@ -3,8 +3,8 @@ import React from 'react'
 const UserForm = () => {
     return (
 
-        <div className="h-[70vh] overflow-y-auto overflow-x-hidden ">
-            <div className=' my-3 bg-white p-4 rounded-sm shadow-md text-black font-medium text-lg h-[94%]'>
+        <div className="h-[65vh] overflow-y-auto overflow-x-hidden ">
+            <div className=' my-4 bg-white p-4 rounded-sm shadow-md text-black font-medium text-lg '>
                 <div className="row">
                     <div className="card ">
                         <form className='w-full'>
